@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">Q</span> MCQ Test Platform</div>
+      <div class="flex items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container">
+      <div class="page-heading">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="subtitle">Overview across all your tests.</p>
+        </div>
+        <a href="/admin/test-form.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Create New Test
+        </a>
+      </div>
+
+      <div class="stat-grid" id="overviewStats">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="section-title-row" style="margin-top: var(--space-7);">
+        <h2 style="margin:0;">Your Tests</h2>
+      </div>
+
+      <div id="testListContainer">
+        <div class="page-loader"><span class="spinner"></span> Loading tests…</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Delete confirmation modal -->
+  <div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal">
+      <h3>Delete this test?</h3>
+      <p>This will permanently delete the test, all its questions, and every student's results. This cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete Test</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin/dashboard.js"></script>
+</body>
+</html>

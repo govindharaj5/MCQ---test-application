@@ -1,0 +1,94 @@
+/* ============================================================================
+   Admin panel layout
+   ============================================================================ */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background:
+    radial-gradient(circle at 15% 20%, var(--brand-primary-soft) 0%, transparent 45%),
+    var(--bg-page);
+}
+.auth-card { width: 100%; max-width: 400px; padding: var(--space-7) var(--space-6); }
+.auth-card .brand { justify-content: center; margin-bottom: var(--space-5); font-size: 1.2rem; }
+.auth-card h1 { text-align: center; font-size: 1.35rem; }
+.auth-card .subtitle { text-align: center; margin-bottom: var(--space-6); }
+
+.admin-main { min-height: calc(100vh - var(--header-height)); padding: var(--space-6) 0 var(--space-8); }
+
+.page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+.page-heading .subtitle { margin: 0; }
+.breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: var(--space-2); }
+.breadcrumb a { color: var(--text-muted); }
+
+.section-title-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-4); gap: var(--space-3); flex-wrap: wrap;
+}
+
+/* ---- Test cards grid on the dashboard ---- */
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+.test-card { display: flex; flex-direction: column; gap: var(--space-3); }
+.test-card-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin: 0; }
+.test-card-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); font-size: 0.8rem; color: var(--text-muted); }
+.test-card-meta span { display: flex; align-items: center; gap: 4px; }
+.test-card-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.test-card-link {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: var(--bg-surface-hover); border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3); font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--text-secondary); overflow: hidden;
+}
+.test-card-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+
+/* ---- Question manager ---- */
+.question-item {
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+.question-item-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-3); margin-bottom: var(--space-3); }
+.question-item-num { font-family: var(--font-mono); color: var(--text-muted); font-size: 0.85rem; flex-shrink: 0; }
+.question-item-text { font-weight: 600; flex: 1; }
+.question-item-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-2); font-size: 0.87rem; }
+.question-item-options .opt { padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); background: var(--bg-surface-hover); color: var(--text-secondary); }
+.question-item-options .opt.correct { background: var(--success-soft); color: var(--success); font-weight: 600; }
+.question-item-actions { display: flex; gap: var(--space-2); flex-shrink: 0; }
+
+.progress-target { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+.progress-target .progress-bar { flex: 1; }
+
+/* ---- Results toolbar ---- */
+.results-toolbar {
+  display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;
+  justify-content: space-between; margin-bottom: var(--space-5);
+}
+.results-toolbar .filters { display: flex; gap: var(--space-3); flex-wrap: wrap; flex: 1; }
+.search-input-wrap { position: relative; flex: 1; min-width: 220px; }
+.search-input-wrap svg {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;
+}
+.search-input-wrap .input { padding-left: 40px; }
+
+@media (max-width: 640px) {
+  .page-heading { flex-direction: column; }
+  .test-grid { grid-template-columns: 1fr; }
+  .data-table th, .data-table td { padding: 10px 12px; }
+}

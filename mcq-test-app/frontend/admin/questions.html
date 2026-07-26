@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manage Questions — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">Q</span> MCQ Test Platform</div>
+      <div class="flex items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container" style="max-width: 900px;">
+      <div class="breadcrumb"><a href="/admin/dashboard.html">Dashboard</a> / <span>Manage Questions</span></div>
+      <div class="page-heading">
+        <div>
+          <h1 id="testTitleHeading">Manage Questions</h1>
+          <p class="subtitle" id="testSubtitle"></p>
+        </div>
+        <div class="flex gap-2">
+          <a href="#" id="resultsLink" class="btn btn-secondary">View Results</a>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: var(--space-6);">
+        <div class="progress-target">
+          <div class="progress-bar"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+          <span class="text-sm text-muted" id="progressLabel">0 / 0 questions</span>
+        </div>
+        <div class="test-card-link">
+          <span id="testLinkText"></span>
+          <button class="btn btn-ghost btn-icon btn-sm" id="copyLinkBtn" title="Copy link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="card" id="questionFormCard" style="margin-bottom: var(--space-6);">
+        <h3 id="formTitle">Add Question</h3>
+        <div class="form-error-banner" id="errorBanner"></div>
+        <form id="questionForm" novalidate>
+          <div class="field">
+            <label for="questionText">Question *</label>
+            <textarea class="textarea" id="questionText" placeholder="Enter the question text" required></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="optionA">Option A *</label>
+              <input class="input" type="text" id="optionA" required />
+            </div>
+            <div class="field">
+              <label for="optionB">Option B *</label>
+              <input class="input" type="text" id="optionB" required />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="optionC">Option C *</label>
+              <input class="input" type="text" id="optionC" required />
+            </div>
+            <div class="field">
+              <label for="optionD">Option D *</label>
+              <input class="input" type="text" id="optionD" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Correct Answer *</label>
+            <div class="flex gap-3 flex-wrap" id="correctOptionGroup">
+              <label class="flex items-center gap-2" style="font-weight:400; cursor:pointer;"><input type="radio" name="correctOption" value="A" /> A</label>
+              <label class="flex items-center gap-2" style="font-weight:400; cursor:pointer;"><input type="radio" name="correctOption" value="B" /> B</label>
+              <label class="flex items-center gap-2" style="font-weight:400; cursor:pointer;"><input type="radio" name="correctOption" value="C" /> C</label>
+              <label class="flex items-center gap-2" style="font-weight:400; cursor:pointer;"><input type="radio" name="correctOption" value="D" /> D</label>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <span id="submitLabel">Add Question</span>
+            </button>
+            <button type="button" class="btn btn-secondary hidden" id="cancelEditBtn">Cancel Edit</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="section-title-row">
+        <h2 style="margin:0;">Questions</h2>
+      </div>
+      <div id="questionListContainer">
+        <div class="page-loader"><span class="spinner"></span> Loading questions…</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal">
+      <h3>Delete this question?</h3>
+      <p>This cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin/questions.js"></script>
+</body>
+</html>

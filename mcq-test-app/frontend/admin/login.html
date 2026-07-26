@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Login — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="card auth-card fade-in">
+      <div class="brand"><span class="brand-mark">Q</span> MCQ Test Platform</div>
+      <h1>Admin Login</h1>
+      <p class="subtitle text-muted text-sm">Sign in to manage tests and view results.</p>
+
+      <div class="form-error-banner" id="errorBanner"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input class="input" type="text" id="username" name="username" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input class="input" type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+          <span id="submitLabel">Sign In</span>
+        </button>
+      </form>
+
+      <p class="text-muted text-sm text-center" style="margin-top: var(--space-5);">
+        <a href="/">&larr; Back to home</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin/login.js"></script>
+</body>
+</html>
