@@ -1,10 +1,11 @@
 // ============================================================================
-// api.js — thin fetch wrapper shared by every page.
-// Handles: base URL, JSON encoding/decoding, admin auth header injection,
-// and normalizing errors into a single shape the UI can handle uniformly.
+// api.js
 // ============================================================================
 
 const TOKEN_KEY = 'mcq_admin_token';
+
+// 👇 Render Backend URL
+const API_BASE = 'https://mcq-test-application.onrender.com';
 
 export const auth = {
   getToken() { return localStorage.getItem(TOKEN_KEY); },
@@ -13,22 +14,20 @@ export const auth = {
   isLoggedIn() { return !!localStorage.getItem(TOKEN_KEY); },
 };
 
-/**
- * Core request helper. Throws an Error with a `.message` suitable for
- * displaying directly to the user (the backend already sends clear,
- * human-readable messages — see backend/src/middleware/errorHandler.js).
- */
 async function request(path, { method = 'GET', body, auth: withAuth = false, raw = false } = {}) {
   const headers = {};
+
   if (body !== undefined) headers['Content-Type'] = 'application/json';
+
   if (withAuth) {
     const token = auth.getToken();
     if (token) headers.Authorization = `Bearer ${token}`;
   }
 
   let response;
+
   try {
-    response = await fetch(`/api${path}`, {
+    response = await fetch(`${API_BASE}/api${path}`, {
       method,
       headers,
       body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -43,6 +42,7 @@ async function request(path, { method = 'GET', body, auth: withAuth = false, raw
   }
 
   let payload;
+
   try {
     payload = await response.json();
   } catch (parseErr) {
@@ -56,6 +56,7 @@ async function request(path, { method = 'GET', body, auth: withAuth = false, raw
         location.href = '/admin/login.html';
       }
     }
+
     throw new Error(payload.message || 'Something went wrong. Please try again.');
   }
 
@@ -68,32 +69,37 @@ export const api = {
   put: (path, body, opts) => request(path, { ...opts, method: 'PUT', body }),
   delete: (path, opts) => request(path, { ...opts, method: 'DELETE' }),
 
-  // Admin-authenticated convenience methods
   adminGet: (path) => request(path, { method: 'GET', auth: true }),
   adminPost: (path, body) => request(path, { method: 'POST', body, auth: true }),
   adminPut: (path, body) => request(path, { method: 'PUT', body, auth: true }),
   adminDelete: (path) => request(path, { method: 'DELETE', auth: true }),
 };
 
-/** Triggers a browser download for an authenticated file-export endpoint. */
 export async function downloadAuthenticated(path, filenameFallback) {
   const token = auth.getToken();
-  const response = await fetch(`/api${path}`, {
+
+  const response = await fetch(`${API_BASE}/api${path}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
+
   if (!response.ok) throw new Error('Export failed. Please try again.');
 
   const blob = await response.blob();
+
   const disposition = response.headers.get('Content-Disposition') || '';
   const match = disposition.match(/filename="?([^"]+)"?/);
+
   const filename = match ? match[1] : filenameFallback;
 
   const url = URL.createObjectURL(blob);
+
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;
+
   document.body.appendChild(a);
   a.click();
+
   a.remove();
   URL.revokeObjectURL(url);
 }
