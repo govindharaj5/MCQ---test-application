@@ -104,19 +104,19 @@ document.getElementById('entryForm').addEventListener('submit', async (e) => {
   errorBanner.classList.remove('visible');
 
   const studentName = document.getElementById('studentName').value.trim();
-  const registerNumber = document.getElementById('registerNumber').value.trim();
-  const mobileNumber = document.getElementById('mobileNumber').value.trim();
+  const collegeName = document.getElementById('collegeName').value.trim();
+  const designation = document.getElementById('designation').value.trim();
 
-  if (!studentName || !registerNumber || !mobileNumber) {
+  if (!studentName || !collegeName || !designation) {
     errorBanner.textContent = 'Please fill in all fields.';
     errorBanner.classList.add('visible');
     return;
   }
-  if (!isValidMobile(mobileNumber)) {
-    errorBanner.textContent = 'Please enter a valid mobile number.';
+  if (!designation) {
+    errorBanner.textContent = 'Please select a designation.';
     errorBanner.classList.add('visible');
     return;
-  }
+}
 
   const submitBtn = document.getElementById('submitBtn');
   const submitLabel = document.getElementById('submitLabel');
@@ -126,8 +126,8 @@ document.getElementById('entryForm').addEventListener('submit', async (e) => {
   try {
     const session = await api.post(`/public/tests/${testId}/start`, {
       student_name: studentName,
-      register_number: registerNumber,
-      mobile_number: mobileNumber,
+      register_number: collegeName,
+      mobile_number: designation,
     });
     location.href = `/student/test.html?attemptId=${session.attempt.id}`;
   } catch (err) {

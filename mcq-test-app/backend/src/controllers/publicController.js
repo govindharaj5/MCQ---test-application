@@ -101,12 +101,13 @@ const startAttempt = asyncHandler(async (req, res) => {
   if (!isNonEmptyString(studentName) || studentName.trim().length > 100) {
     throw new ApiError(400, 'Please enter a valid name.');
   }
-  if (!isNonEmptyString(registerNumber) || registerNumber.trim().length > 50) {
-    throw new ApiError(400, 'Please enter a valid register number / employee ID.');
-  }
-  if (!isValidMobile(mobileNumber)) {
-    throw new ApiError(400, 'Please enter a valid mobile number.');
-  }
+  if (!isNonEmptyString(registerNumber) || registerNumber.trim().length > 100) {
+  throw new ApiError(400, 'Please enter a valid college / company name.');
+}
+
+if (!isNonEmptyString(mobileNumber) || mobileNumber.trim().length > 50) {
+  throw new ApiError(400, 'Please select a designation.');
+}
 
   // One attempt per register number per test.
   const existing = Attempt.findByTestAndRegister(test.id, registerNumber.trim());

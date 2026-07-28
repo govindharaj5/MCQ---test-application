@@ -87,7 +87,7 @@ async function loadResults() {
         <table class="data-table">
           <thead>
             <tr>
-              <th>Name</th><th>Register No.</th><th>Mobile</th><th>Status</th>
+              <th>Name</th><th>College Name</th><th>Designation</th><th>Status</th>
               <th>Start Time</th><th>Submitted At</th><th>Time Taken</th><th>Score</th><th>Percentage</th>
             </tr>
           </thead>

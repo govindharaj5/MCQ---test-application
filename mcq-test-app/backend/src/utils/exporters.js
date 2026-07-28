@@ -5,8 +5,8 @@ const ExcelJS = require('exceljs');
 
 const COLUMNS = [
   { header: 'Name', key: 'student_name', width: 24 },
-  { header: 'Register Number', key: 'register_number', width: 20 },
-  { header: 'Mobile Number', key: 'mobile_number', width: 16 },
+  { header: 'College Name', key: 'register_number', width: 20 },
+  { header: 'Designation', key: 'mobile_number', width: 16 },
   { header: 'Status', key: 'status', width: 14 },
   { header: 'Start Time', key: 'start_time', width: 22 },
   { header: 'Submitted At', key: 'submitted_at', width: 22 },

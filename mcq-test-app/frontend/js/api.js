@@ -5,7 +5,11 @@
 const TOKEN_KEY = 'mcq_admin_token';
 
 // 👇 Render Backend URL
-const API_BASE = 'https://mcq-test-application.onrender.com';
+
+const API_BASE =
+  location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : "https://mcq-test-application.onrender.com";
 
 export const auth = {
   getToken() { return localStorage.getItem(TOKEN_KEY); },
