@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/test/:id",
+      "destination": "/student/entry.html"
+    }
+  ]
+}
