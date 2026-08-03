@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<script>
+  // Applied before paint to avoid a flash of the wrong theme.
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <div class="center-page" style="min-height:100vh;">
+    <div class="card fade-in" style="max-width:460px; width:100%; padding: var(--space-8) var(--space-6); text-align:center;">
+      <div class="brand" style="justify-content:center; margin-bottom: var(--space-5); font-size:1.3rem;">
+        <span class="brand-mark">JS</span> Online Test Platform
+      </div>
+      <h1 style="font-size:1.3rem;">Online assessments, done right</h1>
+      <p>Create timed multiple-choice tests, share a single link, and get automatically scored results — no paperwork.</p>
+
+      <div class="flex flex-col gap-3" style="margin-top: var(--space-6);">
+        <a href="/admin/login.html" class="btn btn-primary btn-lg btn-block">Admin Login</a>
+      </div>
+
+      <p class="text-muted text-sm" style="margin-top: var(--space-6);">
+        Have a test link from your instructor or organization? Open it directly in your browser to begin.
+      </p>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" style="margin: var(--space-5) auto 0;"></button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { bindThemeToggle } from '/js/theme.js';
+    bindThemeToggle();
+  </script>
+</body>
+</html>

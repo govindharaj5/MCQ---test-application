@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Test in Progress — Online Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/student.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body class="student-shell">
+
+  <div id="loadingState" class="page-loader" style="min-height:100vh;">
+    <span class="spinner"></span> Loading your test…
+  </div>
+
+  <div id="testShell" class="hidden">
+    <header class="test-header">
+      <div class="container">
+        <div>
+          <div class="test-header-title" id="testTitle">Test</div>
+          <div class="test-header-sub" id="studentInfo"></div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="autosave-indicator" id="autosaveIndicator">
+            <span class="dot"></span> <span id="autosaveText">All answers saved</span>
+          </div>
+          <div class="timer-bar" id="timerBar">
+            <div class="timer-ring-wrap" id="timerRingWrap">
+              <svg viewBox="0 0 80 80" width="44" height="44">
+                <circle class="timer-ring-track" cx="40" cy="40" r="34"></circle>
+                <circle class="timer-ring-progress" id="timerRingProgress" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="0"></circle>
+              </svg>
+            </div>
+            <span class="timer-time" id="timerText">20:00</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="test-body">
+      <div class="container">
+        <div class="test-layout">
+          <div class="question-card card" id="questionCard">
+            <div class="question-progress">
+              QUESTION <span id="qCurrentNum">1</span> OF <span id="qTotalNum">—</span>
+              <span class="question-marks mono" id="qMarks"></span>
+            </div>
+            <div class="question-text" id="qText">Loading…</div>
+            <div class="option-list" id="optionList"></div>
+
+            <div class="question-nav-footer">
+              <button class="btn btn-secondary" id="prevBtn">&larr; Previous</button>
+              <button class="btn btn-secondary" id="nextBtn">Next &rarr;</button>
+            </div>
+          </div>
+
+          <aside class="card palette-card">
+            <div class="palette-title">Question Navigator</div>
+            <div class="palette-grid" id="paletteGrid"></div>
+            <div class="palette-legend">
+              <div class="legend-item"><span class="swatch answered"></span> Answered</div>
+              <div class="legend-item"><span class="swatch"></span> Not answered</div>
+              <div class="legend-item"><span class="swatch" style="border-color:var(--brand-primary); border-width:2px;"></span> Current</div>
+            </div>
+            <button class="btn btn-accent btn-block" id="submitTestBtn" style="margin-top: var(--space-5);">Submit Test</button>
+            <div class="security-notice">Copy, paste, and right-click are disabled during this test.</div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Submit confirmation modal -->
+  <div class="modal-overlay hidden" id="submitModal">
+    <div class="modal">
+      <h3>Submit Test?</h3>
+      <p id="submitSummaryText">Are you sure you want to submit?</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelSubmitBtn">Keep Reviewing</button>
+        <button class="btn btn-accent" id="confirmSubmitBtn">Submit Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Time's up overlay (auto-submit) -->
+  <div class="modal-overlay hidden" id="timeUpModal">
+    <div class="modal text-center">
+      <h3>Time's Up!</h3>
+      <p>Your test is being submitted automatically…</p>
+      <div class="page-loader" style="padding: var(--space-4) 0;"><span class="spinner"></span></div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/student/test.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">Create Test — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">JS</span> Online Test Platform</div>
+      <div class="flex items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container" style="max-width: 720px;">
+      <div class="breadcrumb"><a href="/admin/dashboard.html">Dashboard</a> / <span id="breadcrumbCurrent">Create Test</span></div>
+      <div class="page-heading">
+        <div>
+          <h1 id="formHeading">Create New Test</h1>
+          <p class="subtitle">Configure the test settings below. You can add questions after saving.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="form-error-banner" id="errorBanner"></div>
+
+        <form id="testForm" novalidate>
+          <div class="field">
+            <label for="title">Test Name *</label>
+            <input class="input" type="text" id="title" name="title" placeholder="e.g. Employee Onboarding Assessment" required />
+          </div>
+
+          <div class="field">
+            <label for="description">Description <span class="label-hint">(optional)</span></label>
+            <textarea class="textarea" id="description" name="description" placeholder="Shown to students before they start."></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="totalQuestions">Total Questions *</label>
+              <input class="input" type="number" id="totalQuestions" name="totalQuestions" min="1" step="1" value="10" required />
+            </div>
+            <div class="field">
+              <label for="marksPerQuestion">Marks per Question *</label>
+              <input class="input" type="number" id="marksPerQuestion" name="marksPerQuestion" min="0.5" step="0.5" value="1" required />
+            </div>
+            <div class="field">
+              <label for="durationMinutes">Duration (minutes) *</label>
+              <input class="input" type="number" id="durationMinutes" name="durationMinutes" min="1" step="1" value="20" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="startTime">Test Start Date &amp; Time *</label>
+              <input class="input" type="datetime-local" id="startTime" name="startTime" required />
+            </div>
+            <div class="field">
+              <label for="endTime">Test End Date &amp; Time *</label>
+              <input class="input" type="datetime-local" id="endTime" name="endTime" required />
+            </div>
+          </div>
+          <p class="text-muted text-sm">The test link only works between these two times. Times use your current browser timezone.</p>
+
+          <div class="flex gap-3" style="margin-top: var(--space-5);">
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+              <span id="submitLabel">Save &amp; Continue to Questions</span>
+            </button>
+            <a href="/admin/dashboard.html" class="btn btn-secondary btn-lg">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="/js/admin/test-form.js"></script>
+</body>
+</html>

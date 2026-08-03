@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Join Test — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/student.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body class="student-shell">
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">Q</span> MCQ Test Platform</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </header>
+
+  <div class="center-page">
+    <!-- Loading state -->
+    <div id="loadingState" class="page-loader">
+      <span class="spinner"></span> Checking test availability…
+    </div>
+
+    <!-- Generic status card (not started / expired / already attempted / not found / inactive) -->
+    <div id="statusCard" class="card status-card hidden">
+      <div class="status-icon" id="statusIcon"></div>
+      <h2 id="statusTitle">—</h2>
+      <p id="statusMessage" class="text-muted"></p>
+      <div id="statusExtra"></div>
+    </div>
+
+    <!-- Entry form -->
+    <div id="entryFormWrap" class="card entry-card hidden">
+      <h1 id="entryTestTitle">Test</h1>
+      <p class="text-muted" id="entryTestDescription"></p>
+
+      <div class="entry-test-info">
+        <div class="info-item"><div class="info-label">Questions</div><div class="info-value" id="infoQuestions">—</div></div>
+        <div class="info-item"><div class="info-label">Duration</div><div class="info-value" id="infoDuration">—</div></div>
+        <div class="info-item"><div class="info-label">Marks Each</div><div class="info-value" id="infoMarks">—</div></div>
+      </div>
+
+      <div class="form-error-banner" id="errorBanner"></div>
+
+      <form id="entryForm" novalidate>
+        <div class="field">
+          <label for="studentName">Full Name *</label>
+          <input class="input" type="text" id="studentName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="collegeName">College Name *</label>
+
+                <select id="collegeName" class="input" required>
+                    <option value="">-- Select College --</option>
+                    <option value="LIT, Palanchur">LIT, Palanchur</option>
+                    <option value="DMICE, Palanchur">DMICE, Palanchur</option>
+                    <option value="JPCE, Tenkasi">JPCE, Tenkasi</option>
+                    <option value="SJCE, Nemili">SJCE, Nemili</option>
+                    <option value="DMIEC, Aral">DMIEC, Aral</option>
+                    <option value="SJCET, Thanjavur">SJCET, Thanjavur</option>
+                    <option value="CTKEC, Coimbatore">CTKEC, Coimbatore</option>
+                    <option value="SJCK,Kovur">SJCK,Kovur</option>
+                    <option value="JPCAS,Tenkasi">JPCAS,Tenkasi</option>
+                    <option value="DMI Edu, Palanchur">DMI Edu, Palanchur</option>
+                    <option value="ANGELCE, Rajapalayam">ANGELCE, Rajapalayam</option>
+                    <option value="JP Edu, Tenkasi">JP Edu, Tenkasi</option>
+                    <option value="Other">Other</option>
+                </select>
+        </div>
+        <div class="field">
+          <label for="designation">Designation *</label>
+
+                <select id="designation" class="input" required>
+                    <option value="">-- Select Designation --</option>
+                    <option value="Accountant Staff">Accountant Staff </option>
+                    <option value="Accountant Sister">Accountant Sister </option>
+                </select>
+        </div>
+
+        <p class="text-muted text-sm">
+          You can attempt this test <strong>only once</strong>. Once you start, a countdown timer will begin and the test will auto-submit when time runs out.
+        </p>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn" style="margin-top: var(--space-4);">
+          <span id="submitLabel">Start Test</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/student/entry.js"></script>
+</body>
+</html>
