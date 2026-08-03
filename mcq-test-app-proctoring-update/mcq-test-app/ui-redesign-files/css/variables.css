@@ -1,0 +1,123 @@
+/* ============================================================================
+   Design Tokens — "Premium Examination Portal"
+   ----------------------------------------------------------------------------
+   Visual direction: professional certification-exam platform (HackerRank /
+   LeetCode / Microsoft Learn style). Blue (#2563EB) as the action color,
+   deep slate (#1E293B) as the structural/ink color, cool slate-grey page
+   background (#F8FAFC) with pure white cards. Dark mode is a full
+   semantic-token flip, so component CSS never references raw colors.
+
+   NOTE: token names must never change — js/student/result.js, test.js and
+   other modules set inline styles like `var(--danger)` / `var(--warning)`.
+   ============================================================================ */
+
+:root {
+  /* ---- Brand & semantic colors (light theme, default) ---- */
+  --bg-page: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-hover: #F1F5F9;
+  --bg-elevated: #FFFFFF;
+  --bg-inverse: #1E293B;
+
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-on-brand: #FFFFFF;
+
+  --brand-primary: #2563EB;
+  --brand-primary-hover: #1D4ED8;
+  --brand-primary-soft: #EFF6FF;
+
+  --accent: #1E293B;
+  --accent-hover: #0F172A;
+  --accent-soft: #EEF2F7;
+  --text-on-accent: #FFFFFF;
+
+  --success: #16A34A;
+  --success-soft: #F0FDF4;
+  --danger: #DC2626;
+  --danger-soft: #FEF2F2;
+  --warning: #F59E0B;
+  --warning-soft: #FFFBEB;
+  --info: #2563EB;
+  --info-soft: #EFF6FF;
+
+  --shadow-rgb: 15, 23, 42;
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.28);
+
+  /* ---- Typography ---- */
+  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 28px;
+  --space-7: 40px;
+  --space-8: 56px;
+
+  /* ---- Radius ---- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* ---- Shadow ---- */
+  --shadow-sm: 0 1px 2px rgba(var(--shadow-rgb), 0.05), 0 1px 3px rgba(var(--shadow-rgb), 0.05);
+  --shadow-md: 0 4px 12px rgba(var(--shadow-rgb), 0.08), 0 2px 4px rgba(var(--shadow-rgb), 0.04);
+  --shadow-lg: 0 12px 32px rgba(var(--shadow-rgb), 0.14), 0 4px 8px rgba(var(--shadow-rgb), 0.06);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 130ms var(--ease);
+  --transition-base: 220ms var(--ease);
+
+  --container-max: 1180px;
+  --header-height: 64px;
+}
+
+[data-theme='dark'] {
+  --bg-page: #0B1220;
+  --bg-surface: #111A2C;
+  --bg-surface-hover: #17233A;
+  --bg-elevated: #1B2A47;
+  --bg-inverse: #F1F5F9;
+
+  --border-subtle: #1E2C47;
+  --border-strong: #2E4166;
+
+  --text-primary: #E6EDF7;
+  --text-secondary: #9FB0CC;
+  --text-muted: #6B7C99;
+  --text-on-brand: #FFFFFF;
+
+  --brand-primary: #3B82F6;
+  --brand-primary-hover: #60A5FA;
+  --brand-primary-soft: #16294F;
+
+  --accent: #E2E8F0;
+  --accent-hover: #F8FAFC;
+  --accent-soft: #1E293B;
+  --text-on-accent: #0F172A;
+
+  --success: #22C55E;
+  --success-soft: #0E2417;
+  --danger: #F87171;
+  --danger-soft: #331520;
+  --warning: #FBBF24;
+  --warning-soft: #2B2110;
+  --info: #60A5FA;
+  --info-soft: #16294F;
+
+  --shadow-rgb: 0, 0, 0;
+  --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.4);
+}

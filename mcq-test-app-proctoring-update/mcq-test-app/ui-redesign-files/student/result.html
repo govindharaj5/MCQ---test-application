@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Result — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/student.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body class="student-shell">
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+      </span> Online Test Platform</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="center-page">
+    <div id="loadingState" class="page-loader">
+      <span class="spinner"></span> Loading your result…
+    </div>
+
+    <div id="resultCard" class="card result-card hidden fade-in">
+      <p class="result-kicker">Test Submitted</p>
+      <h1 id="studentNameHeading" style="margin-top:4px;">—</h1>
+      <!-- Pass/fail verdict badge, driven by the test's configured threshold -->
+      <span class="verdict-badge hidden" id="verdictBadge"></span>
+
+      <div class="score-ring-wrap">
+        <span class="ring-glow"></span>
+        <svg viewBox="0 0 180 180" width="168" height="168">
+          <circle class="score-ring-track" cx="90" cy="90" r="80"></circle>
+          <circle class="score-ring-progress" id="scoreRingProgress" cx="90" cy="90" r="80" stroke-dasharray="502.4" stroke-dashoffset="502.4"></circle>
+        </svg>
+        <div class="score-ring-label">
+          <span class="pct" id="pctValue">0%</span>
+          <span class="pct-sub">Score</span>
+        </div>
+      </div>
+
+      <div class="result-stats">
+        <div class="stat-card"><div class="stat-label">Score</div><div class="stat-value" id="scoreValue">—</div></div>
+        <div class="stat-card"><div class="stat-label">Time Taken</div><div class="stat-value" id="timeValue">—</div></div>
+        <div class="stat-card"><div class="stat-label">Submitted</div><div class="stat-value" id="submittedValue" style="font-size:0.85rem;">—</div></div>
+      </div>
+
+      <p class="text-muted text-sm">Thank you for completing the test. You cannot attempt this test again.</p>
+    </div>
+
+    <div id="errorState" class="card status-card hidden">
+      <h2>Result not available</h2>
+      <p class="text-muted" id="errorMessage"></p>
+    </div>
+  </div>
+
+  <script type="module" src="/js/student/result.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">Create Test — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+      </span> Online Test Platform</div>
+      <div class="flex items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        </button>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Log Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container" style="max-width: 740px;">
+      <div class="breadcrumb"><a href="/admin/dashboard.html">Dashboard</a> / <span id="breadcrumbCurrent">Create Test</span></div>
+      <div class="page-heading">
+        <div>
+          <h1 id="formHeading">Create New Test</h1>
+          <p class="subtitle">Configure the test settings below. You can add questions after saving.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="form-error-banner" id="errorBanner"></div>
+
+        <form id="testForm" novalidate>
+          <div class="field">
+            <label for="title">Test Name *</label>
+            <input class="input" type="text" id="title" name="title" placeholder="e.g. Employee Onboarding Assessment" required />
+          </div>
+
+          <div class="field">
+            <label for="description">Description <span class="label-hint">(optional)</span></label>
+            <textarea class="textarea" id="description" name="description" placeholder="Shown to students before they start."></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="totalQuestions">Total Questions *</label>
+              <input class="input" type="number" id="totalQuestions" name="totalQuestions" min="1" step="1" value="10" required />
+            </div>
+            <div class="field">
+              <label for="marksPerQuestion">Marks per Question *</label>
+              <input class="input" type="number" id="marksPerQuestion" name="marksPerQuestion" min="0.5" step="0.5" value="1" required />
+            </div>
+            <div class="field">
+              <label for="durationMinutes">Duration (minutes) *</label>
+              <input class="input" type="number" id="durationMinutes" name="durationMinutes" min="1" step="1" value="20" required />
+            </div>
+          </div>
+
+          <!-- Pass threshold -->
+          <div class="field-row">
+            <div class="field">
+              <label for="passPercentage">Pass Percentage *</label>
+              <input class="input" type="number" id="passPercentage" name="passPercentage" min="0" max="100" step="1" value="40" required />
+            </div>
+            <div class="field" style="justify-content:flex-end; display:flex; flex-direction:column;">
+              <p class="text-muted text-sm" style="margin:0;">Students at or above this % of total marks pass. Default 40%.</p>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="startTime">Test Start Date &amp; Time *</label>
+              <input class="input" type="datetime-local" id="startTime" name="startTime" required />
+            </div>
+            <div class="field">
+              <label for="endTime">Test End Date &amp; Time *</label>
+              <input class="input" type="datetime-local" id="endTime" name="endTime" required />
+            </div>
+          </div>
+          <p class="text-muted text-sm">The test link only works between these two times. Times use your current browser timezone.</p>
+
+          <!-- Proctoring & Security — every option below is OPT-IN and
+               defaults OFF -->
+          <div class="card proctoring-card" style="background: var(--bg-surface-hover); margin-top: var(--space-5); box-shadow:none;">
+            <h3 style="margin-bottom: var(--space-2);">Proctoring &amp; Security <span class="label-hint">(optional)</span></h3>
+            <p class="text-muted text-sm">Enable any combination below. Each rule auto-submits the student's test once their warning limit is reached.</p>
+
+            <div class="field" style="margin-top: var(--space-4);">
+              <label class="flex items-center gap-2" style="font-weight:600; cursor:pointer;">
+                <input type="checkbox" id="webcamRequired" />
+                Require webcam monitoring (auto-submit after <input type="number" id="maxWebcamViolations" class="input" style="width:56px; padding:4px 8px; display:inline-block;" min="1" value="2" /> warnings)
+              </label>
+            </div>
+            <div class="field">
+              <label class="flex items-center gap-2" style="font-weight:600; cursor:pointer;">
+                <input type="checkbox" id="fullscreenRequired" />
+                Require fullscreen mode (auto-submit after <input type="number" id="maxFullscreenViolations" class="input" style="width:56px; padding:4px 8px; display:inline-block;" min="1" value="2" /> warnings)
+              </label>
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label class="flex items-center gap-2" style="font-weight:600; cursor:pointer;">
+                <input type="checkbox" id="tabSwitchEnforced" />
+                Detect tab switching / lost focus (auto-submit after <input type="number" id="maxTabSwitchViolations" class="input" style="width:56px; padding:4px 8px; display:inline-block;" min="1" value="3" /> warnings)
+              </label>
+            </div>
+          </div>
+
+          <div class="flex gap-3" style="margin-top: var(--space-5);">
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+              <span id="submitLabel">Save &amp; Continue to Questions</span>
+            </button>
+            <a href="/admin/dashboard.html" class="btn btn-secondary btn-lg">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="/js/admin/test-form.js"></script>
+</body>
+</html>

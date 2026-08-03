@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manage Questions — MCQ Test Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/variables.css" />
+<link rel="stylesheet" href="/css/base.css" />
+<link rel="stylesheet" href="/css/components.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<script>
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('mcq_theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand"><span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+      </span> Online Test Platform</div>
+      <div class="flex items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        </button>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Log Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container" style="max-width: 920px;">
+      <div class="breadcrumb"><a href="/admin/dashboard.html">Dashboard</a> / <span>Manage Questions</span></div>
+      <div class="page-heading">
+        <div>
+          <h1 id="testTitleHeading">Manage Questions</h1>
+          <p class="subtitle" id="testSubtitle"></p>
+        </div>
+        <div class="flex gap-2">
+          <a href="#" id="resultsLink" class="btn btn-secondary">View Results</a>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: var(--space-6);">
+        <div class="progress-target">
+          <div class="progress-bar"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+          <span class="text-sm text-muted mono" id="progressLabel">0 / 0 questions</span>
+        </div>
+        <div class="test-card-link">
+          <span id="testLinkText"></span>
+          <button class="btn btn-ghost btn-icon btn-sm" id="copyLinkBtn" title="Copy link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Question editor -->
+      <div class="card" id="questionFormCard" style="margin-bottom: var(--space-6);">
+        <h3 id="formTitle">Add Question</h3>
+        <div class="form-error-banner" id="errorBanner"></div>
+        <form id="questionForm" novalidate>
+          <div class="field">
+            <label for="questionText">Question *</label>
+            <textarea class="textarea" id="questionText" placeholder="Enter the question text" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="questionDescription">Description <span class="text-muted text-sm">(optional)</span></label>
+            <textarea class="textarea" id="questionDescription" placeholder="Extra context or instructions shown to the student" rows="2"></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="optionA">Option A *</label>
+              <div class="opt-input-group">
+                <span class="letter-chip">A</span>
+                <input class="input" type="text" id="optionA" required />
+              </div>
+            </div>
+            <div class="field">
+              <label for="optionB">Option B *</label>
+              <div class="opt-input-group">
+                <span class="letter-chip">B</span>
+                <input class="input" type="text" id="optionB" required />
+              </div>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="optionC">Option C *</label>
+              <div class="opt-input-group">
+                <span class="letter-chip">C</span>
+                <input class="input" type="text" id="optionC" required />
+              </div>
+            </div>
+            <div class="field">
+              <label for="optionD">Option D *</label>
+              <div class="opt-input-group">
+                <span class="letter-chip">D</span>
+                <input class="input" type="text" id="optionD" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Correct Answer(s) * <span class="text-muted text-sm">(tick all that apply)</span></label>
+            <div class="flex gap-3 flex-wrap" id="correctOptionGroup">
+              <label class="flex items-center gap-2"><input type="checkbox" name="correctOption" value="A" /> A</label>
+              <label class="flex items-center gap-2"><input type="checkbox" name="correctOption" value="B" /> B</label>
+              <label class="flex items-center gap-2"><input type="checkbox" name="correctOption" value="C" /> C</label>
+              <label class="flex items-center gap-2"><input type="checkbox" name="correctOption" value="D" /> D</label>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="pointsInput">Points <span class="text-muted text-sm">(defaults to test marks per question)</span></label>
+              <input class="input" type="number" id="pointsInput" min="1" step="0.5" placeholder="e.g. 2" />
+            </div>
+            <div class="field">
+              <label for="imageUrlInput">Image URL <span class="text-muted text-sm">(optional)</span></label>
+              <input class="input" type="url" id="imageUrlInput" placeholder="https://…" />
+            </div>
+            <div class="field">
+              <label for="videoUrlInput">Video URL <span class="text-muted text-sm">(optional)</span></label>
+              <input class="input" type="url" id="videoUrlInput" placeholder="https://…" />
+            </div>
+          </div>
+
+          <!-- Response validation -->
+          <div class="field">
+            <label>Response validation</label>
+            <div class="field-row">
+              <div class="field" style="margin:0;">
+                <select class="input" id="validationType">
+                  <option value="">No validation</option>
+                  <option value="exact">Exactly</option>
+                  <option value="at_least">At least</option>
+                  <option value="at_most">At most</option>
+                </select>
+              </div>
+              <div class="field" style="margin:0;">
+                <select class="input" id="validationValue">
+                  <option value="1">1 answer</option>
+                  <option value="2">2 answers</option>
+                  <option value="3">3 answers</option>
+                  <option value="4">4 answers</option>
+                </select>
+              </div>
+              <div class="field" style="margin:0; flex:2;">
+                <input class="input" type="text" id="validationMessage" placeholder="Custom error message (optional)" />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row" style="align-items:center;">
+            <div class="field" style="margin:0;">
+              <label class="flex items-center gap-2" style="font-weight:500; cursor:pointer;">
+                <input type="checkbox" id="requiredToggle" checked /> Required question
+              </label>
+            </div>
+            <div class="field" style="margin:0;">
+              <label class="flex items-center gap-2" style="font-weight:500; cursor:pointer;">
+                <input type="checkbox" id="shuffleToggle" checked /> Shuffle options for each student
+              </label>
+            </div>
+          </div>
+
+          <div class="flex gap-3" style="margin-top: var(--space-5);">
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <span id="submitLabel">Add Question</span>
+            </button>
+            <button type="button" class="btn btn-secondary hidden" id="cancelEditBtn">Cancel Edit</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="section-title-row">
+        <h2 style="margin:0;">Questions</h2>
+        <span class="text-sm text-muted" id="dragHint">Drag questions to reorder</span>
+      </div>
+      <div id="questionListContainer">
+        <div class="page-loader"><span class="spinner"></span> Loading questions…</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal">
+      <h3>Delete this question?</h3>
+      <p>This cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student-side preview of the question as configured -->
+  <div class="modal-overlay hidden" id="previewModal">
+    <div class="modal" style="max-width:560px; width:100%;">
+      <div class="flex items-center justify-between" style="margin-bottom: var(--space-4);">
+        <h3 style="margin:0;">Preview</h3>
+        <button class="btn btn-ghost btn-sm" id="closePreviewBtn">Close</button>
+      </div>
+      <div id="previewContent"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin/questions.js"></script>
+</body>
+</html>
